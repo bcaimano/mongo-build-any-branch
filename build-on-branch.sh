@@ -7,7 +7,7 @@ set -x
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Skip to the root folder to make it easy
-cd "${MONGO_DIR:-.}"
+cd "${MONGO_REPO:-.}"
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 VENV_DIR=".venv-${VERSION_BRANCH}"
@@ -73,7 +73,8 @@ elif [[ $VERSION_BRANCH == v4.2 ]]; then
     # Include the variable files
     VAR_FILE="${DIR}/workstation_variables.py"
     SCONS_CMD+=(
-        --variables-files="./etc/scons/mongodbtoolchain_stable_gcc.vars ${VAR_FILE}"
+        --variables-files="./etc/scons/mongodbtoolchain_stable_gcc.vars"
+        --variables-files="${VAR_FILE}"
     )
 
     # Set build mode flags explicitly
